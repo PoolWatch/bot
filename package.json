@@ -1,0 +1,24 @@
+{
+  "name": "poolwatch-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/telegraf/telegraf.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/telegraf/telegraf/issues"
+  },
+  "homepage": "https://github.com/telegraf/telegraf#readme",
+  "dependencies": {
+    "pmx": "^1.6.4",
+    "request": "^2.87.0",
+    "telebot": "^1.2.6"
+  }
+}
