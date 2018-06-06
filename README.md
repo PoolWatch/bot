@@ -9,4 +9,4 @@ Commands available are:
 ```
 
 
-[Click here to start using the bot](https://t.me/@NimiqPoolWatchBot)
+[Click here to start using the bot](https://t.me/@PoolWatchRobot)
