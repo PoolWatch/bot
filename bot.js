@@ -56,11 +56,14 @@ V0.0.1 by @brantje
 bot.on('/pools', async (msg, props) => {
     await Helper.getPools(function (data) {
         let text = '';
+        let globalHashRate = 0;
         for (pool of data) {
             if (pool.pool === 'Nimiq') {
                 pool.pool = 'Nimiq.io (Nimiq network)'
+                globalHashRate = pool.hashRate;
             }
-            text += `${pool.pool} @ ${Helper.humanHashes(pool.hashRate)}\n`;
+            const percentOfNetwork = ((pool.hashRate / globalHashRate ) * 100).toFixed(3);
+            text += `${pool.pool} @ ${Helper.humanHashes(pool.hashRate)} (${percentOfNetwork}%) \n`;
         }
         return sendBannerMessage(msg.chat.id, text);
     });
