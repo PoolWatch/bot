@@ -69,6 +69,22 @@ bot.on('/pools', async (msg, props) => {
     });
 });
 
+bot.on(/^\/pool\s?(.+)?$/, async (msg, props) => {
+    const pool = props.match[1];
+    if (!pool) {
+        return sendMessage(msg.chat.id, 'You need to enter a pool name. For example /hr Sushipool');
+    }
+    await Helper.getPoolData(pool, function (data) {
+        let text = 'Pool not found!';
+        if (data.hasOwnProperty('pool')) {
+            text = `**${data.pool}**`;
+            text += `Hashrate: ${Helper.humanHashes(data.hashRate)}\n`;
+            text += `Devices: ${data.devices}\n`;
+            text += `Users: ${data.userCount}`;
+        }
+        return sendBannerMessage(msg.chat.id, text);
+    });
+});
 bot.on(/^\/hr\s?(.+)?$/, async (msg, props) => {
     const pool = props.match[1];
     if (!pool) {
