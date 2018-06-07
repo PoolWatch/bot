@@ -30,8 +30,8 @@ probe.metric({
 
 function sendBannerMessage(msgId, msg) {
     commandsProcessed++;
-    msg += "\nData provided by www.poolwatch.info";
-    return bot.sendMessage(msgId, msg)
+    msg += "\nData provided by [PoolWatch](https://poolwatch.info)";
+    return bot.sendMessage(msgId, msg, {parseMode: 'markdown', preview: false})
 }
 
 function sendMessage(msgId, msg) {
@@ -59,7 +59,7 @@ bot.on('/pools', async (msg, props) => {
         let globalHashRate = 0;
         for (pool of data) {
             if (pool.pool === 'Nimiq') {
-                pool.pool = 'Nimiq.io (Nimiq network)'
+                pool.pool = 'Nimiq.io (Nimiq network)';
                 globalHashRate = pool.hashRate;
             }
             const percentOfNetwork = ((pool.hashRate / globalHashRate ) * 100).toFixed(3);
@@ -77,7 +77,7 @@ bot.on(/^\/pool\s?(.+)?$/, async (msg, props) => {
     await Helper.getPoolData(pool, function (data) {
         let text = 'Pool not found!';
         if (data.hasOwnProperty('pool')) {
-            text = `**${data.pool}**`;
+            text = `*${data.pool}*\n`;
             text += `Hashrate: ${Helper.humanHashes(data.hashRate)}\n`;
             text += `Devices: ${data.devices}\n`;
             text += `Users: ${data.userCount}`;
