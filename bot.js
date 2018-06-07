@@ -69,7 +69,7 @@ bot.on('/pools', async (msg, props) => {
     });
 });
 
-bot.on(/^\/pool\s?(.+)?$/, async (msg, props) => {
+bot.on(/^\/pool (.+)?$/, async (msg, props) => {
     const pool = props.match[1];
     if (!pool) {
         return sendMessage(msg.chat.id, 'You need to enter a pool name. For example /hr Sushipool');
