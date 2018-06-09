@@ -80,7 +80,8 @@ bot.on(/^\/pool (.+)?$/, async (msg, props) => {
             text = `*${data.pool}*\n`;
             text += `Hashrate: ${Helper.humanHashes(data.hashRate)}\n`;
             text += `Devices: ${data.devices}\n`;
-            text += `Users: ${data.userCount}`;
+            text += `Users: ${data.userCount} \n`;
+            text += `Hashrate per device: ${Helper.humanHashes(data.hashRate / data.devices)}`;
         }
         return sendBannerMessage(msg.chat.id, text);
     });
