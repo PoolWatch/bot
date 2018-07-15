@@ -1,6 +1,8 @@
 const Helper = require('./lib/Helper');
 const TeleBot = require('telebot');
 const config = require('./config.json');
+const ns = require('./lib/NetworkService');
+const NetworkService = new ns();
 var pmx = require('pmx').init({
     errors: true, // Exceptions logging (default: true)
     custom_probes: true, // Auto expose JS Loop Latency and HTTP req/s as custom metrics
@@ -56,13 +58,11 @@ V0.0.1 by @brantje
 bot.on('/pools', async (msg, props) => {
     await Helper.getPools(function (data) {
         let text = '';
-        let globalHashRate = 0;
+        let globalHR = NetworkService.getHashrate();
+        text += `Network hashrate: ${Helper.humanHashes(globalHR)}\n`;
         for (pool of data) {
-            if (pool.pool === 'Nimiq') {
-                pool.pool = 'Nimiq.io (Nimiq network)';
-                globalHashRate = pool.hashRate;
-            }
-            const percentOfNetwork = ((pool.hashRate / globalHashRate ) * 100).toFixed(3);
+            const globalHR = NetworkService.getHashrate();
+            const percentOfNetwork = ((pool.hashRate / globalHR ) * 100).toFixed(3);
             text += `${pool.pool} @ ${Helper.humanHashes(pool.hashRate)} (${percentOfNetwork}%) \n`;
         }
         return sendBannerMessage(msg.chat.id, text);
